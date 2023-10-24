@@ -5,7 +5,7 @@ TextStyle getRegularStyle({
   required double fontSize,
   required Color color,
 }) {
-  return GoogleFonts.comfortaa(
+  return GoogleFonts.akatab(
       fontSize: fontSize, fontWeight: FontWeightManager.regular, color: color);
 }
 
@@ -13,7 +13,7 @@ TextStyle getMediumStyle({
   required double fontSize,
   required Color color,
 }) {
-  return GoogleFonts.comfortaa(
+  return GoogleFonts.akatab(
       fontSize: fontSize, fontWeight: FontWeightManager.medium, color: color);
 }
 
@@ -21,7 +21,7 @@ TextStyle getLightStyle({
   required double fontSize,
   required Color color,
 }) {
-  return GoogleFonts.comfortaa(
+  return GoogleFonts.akatab(
       fontSize: fontSize, fontWeight: FontWeightManager.light, color: color);
 }
 
@@ -29,7 +29,7 @@ TextStyle getSemiBoldStyle({
   required double fontSize,
   required Color color,
 }) {
-  return GoogleFonts.comfortaa(
+  return GoogleFonts.akatab(
       fontSize: fontSize, fontWeight: FontWeightManager.bold, color: color);
 }
 
@@ -37,7 +37,7 @@ TextStyle getBoldStyle({
   required double fontSize,
   required Color color,
 }) {
-  return GoogleFonts.comfortaa(
+  return GoogleFonts.akatab(
       fontSize: fontSize, fontWeight: FontWeightManager.bold, color: color);
 }
 

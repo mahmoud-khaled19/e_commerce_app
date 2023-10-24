@@ -29,7 +29,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
     );
     OnBoardingViewModel.animationController.repeat();
     OnBoardingViewModel.animation = TextStyleTween(
-      begin: const TextStyle(color: Colors.blue, fontSize: AppSize.s16),
+      begin: TextStyle(color: Colors.blue, fontSize: AppSize.s16),
       end: TextStyle(
           color: ColorsManager.lightSecondColor, fontSize: AppSize.s16),
     ).animate(CurvedAnimation(
@@ -51,7 +51,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSize.s14),
+          padding: EdgeInsets.symmetric(horizontal: AppSize.s14),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
@@ -70,7 +70,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                     ),
                   ),
                 ),
-                const SizedBox(height: AppSize.s20),
+                SizedBox(height: AppSize.s20),
                 SizedBox(
                   height: hSize * 0.62,
                   child: PageView.builder(
@@ -85,7 +85,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                             ),
                             fit: BoxFit.cover,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: AppSize.s30,
                           ),
                           DefaultCustomText(
@@ -93,14 +93,14 @@ class _OnBoardingViewState extends State<OnBoardingView>
                             fontSize: AppSize.s20,
                             fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: AppSize.s8,
                           ),
                           DefaultCustomText(
                             text: OnBoardingViewModel.boardingList[index].body1,
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: AppSize.s8,
                           ),
                           DefaultCustomText(
@@ -111,7 +111,8 @@ class _OnBoardingViewState extends State<OnBoardingView>
                       );
                     },
                     onPageChanged: (value) {
-                      if (value == OnBoardingViewModel.boardingList.length - 1) {
+                      if (value ==
+                          OnBoardingViewModel.boardingList.length - 1) {
                         setState(() {
                           OnBoardingViewModel.isLast = true;
                         });
@@ -124,7 +125,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                     itemCount: OnBoardingViewModel.boardingList.length,
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: AppSize.s8,
                 ),
                 SmoothPageIndicator(
@@ -142,7 +143,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                     activeDotColor: ColorsManager.lightSecondColor,
                   ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: AppSize.s50,
                 ),
                 if (OnBoardingViewModel.isLast == true)

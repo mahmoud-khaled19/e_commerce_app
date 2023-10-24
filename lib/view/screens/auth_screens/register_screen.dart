@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
@@ -14,7 +13,8 @@ import '../../../view_model/register_cubit/register_cubit.dart';
 import '../../widgets/default_text_form_field.dart';
 
 class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     double hSize = AppDimensions.screenHeight(context);
@@ -24,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSize.s20),
+              padding:  EdgeInsets.symmetric(horizontal: AppSize.s20),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -37,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     DefaultCustomText(
-                      text: AppStrings.register.tr(),
+                      text: AppStrings.register,
                       style: Theme.of(context).textTheme.headlineLarge,
                       alignment: Alignment.centerLeft,
                     ),
@@ -47,7 +47,7 @@ class RegisterScreen extends StatelessWidget {
                       //       AppStrings.validateName, value);
                       // },
                       controller: cubit.nameController,
-                      hint: AppStrings.nameLabel.tr(),
+                      hint: AppStrings.nameLabel,
                     ),
                     DefaultTextFormField(
                       // validate: (String? value) {
@@ -56,7 +56,7 @@ class RegisterScreen extends StatelessWidget {
                       // },
                       textType: TextInputType.phone,
                       controller: cubit.phoneController,
-                      hint: AppStrings.phoneLabel.tr(),
+                      hint: AppStrings.phoneLabel,
                     ),
                     DefaultTextFormField(
                       // validate: (String? value) {
@@ -66,16 +66,16 @@ class RegisterScreen extends StatelessWidget {
                       textType: TextInputType.emailAddress,
                       isSecure: false,
                       controller: cubit.emailController,
-                      hint: AppStrings.emailLabel.tr(),
+                      hint: AppStrings.emailLHint,
                     ),
                     DefaultTextFormField(
                         // validate: (String? value) {
                         //   if (value!.isEmpty) {
-                        //     return AppStrings.validatePassword.tr();
+                        //     return AppStrings.validatePassword;
                         //   }
-                        //   return AppStrings.validatePassword.tr();
+                        //   return AppStrings.validatePassword;
                         // },
-                        hint: AppStrings.passwordLabel.tr(),
+                        hint: AppStrings.passwordLabel,
                         isSecure: cubit.visible,
                         controller: cubit.passController,
                         suffixIcon: cubit.visible
@@ -93,7 +93,7 @@ class RegisterScreen extends StatelessWidget {
                       visible: state is! RegisterLoadingState,
                       child: DefaultButton(
                           context: context,
-                          text: AppStrings.register.tr(),
+                          text: AppStrings.register,
                           function: () {
                             cubit.userRegister(context,
                                 email: cubit.emailController.text,
@@ -111,7 +111,7 @@ class RegisterScreen extends StatelessWidget {
                           text: AppStrings.alreadyHaveAccount,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: AppSize.s10,
                         ),
                         GestureDetector(
@@ -119,8 +119,8 @@ class RegisterScreen extends StatelessWidget {
                             GlobalMethods.navigateAndFinish(
                                 context, const LoginScreen());
                           },
-                          child: DefaultCustomText(
-                            text: AppStrings.login.tr(),
+                          child: const DefaultCustomText(
+                            text: AppStrings.login,
                             color: Colors.blue,
                           ),
                         )

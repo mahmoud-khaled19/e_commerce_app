@@ -1,5 +1,4 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
@@ -23,7 +22,7 @@ class PrivacyScreen extends StatelessWidget {
     double hSize = MediaQuery.of(context).size.height;
     double wSize = MediaQuery.of(context).size.width;
 
-    return BlocConsumer<ShopCubit, ShopStates>(
+    return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {
         if (state is ShopUpdateUserinfoSuccessState) {
           GlobalMethods.showToast(
@@ -31,17 +30,17 @@ class PrivacyScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        ShopCubit cubit = BlocProvider.of(context);
+        AppCubit cubit = BlocProvider.of(context);
         return Scaffold(
             appBar: AppBar(
               title: Center(
                 child: Text(
-                  AppStrings.update.tr(),
+                  AppStrings.update,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
             ),
-            body: BlocConsumer<ShopCubit, ShopStates>(
+            body: BlocConsumer<AppCubit, AppStates>(
               listener: (context, state) {},
               builder: (context, state) {
                 var model = cubit.userInfo!;
@@ -67,7 +66,7 @@ class PrivacyScreen extends StatelessWidget {
                                   }
                                   return '';
                                 },
-                                hint: AppStrings.nameLabel.tr()),
+                                hint: AppStrings.nameLabel),
                             DefaultTextFormField(
                                 textType: TextInputType.phone,
                                 controller: phoneController,
@@ -77,7 +76,7 @@ class PrivacyScreen extends StatelessWidget {
                                   }
                                   return '';
                                 },
-                                hint: AppStrings.phoneLabel.tr()),
+                                hint: AppStrings.phoneLabel),
                             DefaultTextFormField(
                               textType: TextInputType.emailAddress,
                               controller: emailController,
@@ -87,7 +86,7 @@ class PrivacyScreen extends StatelessWidget {
                                 }
                                 return '';
                               },
-                              hint: AppStrings.emailLabel.tr(),
+                              hint: AppStrings.emailLHint,
                             ),
                             SizedBox(
                               height: hSize * 0.04,
@@ -95,7 +94,7 @@ class PrivacyScreen extends StatelessWidget {
                             DefaultButton(
                                 context: context,
                                 width: wSize * 0.4,
-                                text: AppStrings.update.tr(),
+                                text: AppStrings.update,
                                 function: () {
                                   if (formKey.currentState!.validate()) {
                                     cubit.updateUserdata(

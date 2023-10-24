@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
@@ -9,7 +8,7 @@ import '../../generated/assets.dart';
 import '../../view_model/app_cubit/app_cubit.dart';
 import '../../view_model/search_cubit/cubit.dart';
 import '../../view_model/search_cubit/states.dart';
-import 'layout_screens/products/products_details/product_details.dart';
+import 'layout_screens/product_details.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});
@@ -41,7 +40,7 @@ class SearchScreen extends StatelessWidget {
                           cubit.getSearch();
                         }
                       },
-                      hint: AppStrings.search.tr()),
+                      hint: AppStrings.search),
                   const SizedBox(
                     height: 10,
                   ),
@@ -65,7 +64,7 @@ class SearchScreen extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              AppStrings.searchScreen.tr(),
+                              AppStrings.searchScreen,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
@@ -91,7 +90,7 @@ class SearchScreen extends StatelessWidget {
                           Align(
                             alignment: Alignment.center,
                             child: Text(
-                              AppStrings.searchScreen2.tr(),
+                              AppStrings.searchScreen2,
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                           ),
@@ -113,11 +112,14 @@ class SearchScreen extends StatelessWidget {
                                       GlobalMethods.navigateTo(
                                           context,
                                           ProductDetails(
-                                              image: data.image!,
-                                              id: data.id!,
-                                              name: data.name!,
-                                              price: data.price,
-                                              description: data.description!));
+                                            image: data.image!,
+                                            id: data.id!,
+                                            discount: data.discount!,
+                                            name: data.name!,
+                                            price: data.price,
+                                            description: data.description!,
+                                            oldPrice: data.oldPrice!,
+                                          ));
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -164,7 +166,7 @@ class SearchScreen extends StatelessWidget {
                                           ),
                                           const Spacer(),
                                           Icon(
-                                            ShopCubit.get(context).favourites[
+                                            AppCubit.get(context).favourites[
                                                     cubit.model!.data!
                                                         .data[index].id!]!
                                                 ? Icons.favorite

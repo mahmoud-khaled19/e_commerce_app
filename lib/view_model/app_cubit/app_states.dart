@@ -1,60 +1,60 @@
 import 'package:shop_app/models/shop_model/shop_model.dart';
 
-abstract class ShopStates {}
+abstract class AppStates {}
 
-class ShopInitialState extends ShopStates {}
+class ShopInitialState extends AppStates {}
 
-class ShopChangeTheme extends ShopStates {}
+class ShopChangeTheme extends AppStates {}
 
-class ShopChangeNavBarStates extends ShopStates {}
+class ShopChangeNavBarStates extends AppStates {}
 
-class ShopHomeLoadingState extends ShopStates {}
+class ShopHomeLoadingState extends AppStates {}
 
-class ShopHomeSuccessState extends ShopStates {}
+class ShopHomeSuccessState extends AppStates {}
 
-class ShopHomeErrorState extends ShopStates {}
+class ShopHomeErrorState extends AppStates {}
 
-class ShopCategorySuccessState extends ShopStates {}
+class ShopCategorySuccessState extends AppStates {}
 
-class ShopCategoryErrorState extends ShopStates {}
+class ShopCategoryErrorState extends AppStates {}
 
-class ShopChangeFavoritesSuccessState extends ShopStates {}
-class ShopChangeFavoritesLoadingsState extends ShopStates {}
+class ShopChangeFavoritesSuccessState extends AppStates {}
+class ShopChangeFavoritesLoadingsState extends AppStates {}
 
-class ShopChangeFavoritesErrorState extends ShopStates {}
+class ShopChangeFavoritesErrorState extends AppStates {}
 
-class ShopFavoritesSuccessState extends ShopStates {}
+class ShopFavoritesSuccessState extends AppStates {}
 
-class ShopGetFavoritesLoadingState extends ShopStates {}
+class ShopGetFavoritesLoadingState extends AppStates {}
 
-class ShopFavoritesErrorState extends ShopStates {}
+class ShopFavoritesErrorState extends AppStates {}
 
-class ShopUserDataSuccessState extends ShopStates {
+class ShopUserDataSuccessState extends AppStates {
   ShopModel? model;
 
   ShopUserDataSuccessState({this.model});
 }
 
-class ShopUserDataLoadingState extends ShopStates {}
+class ShopUserDataLoadingState extends AppStates {}
 
-class ShopUpdateUserinfoLoadingState extends ShopStates {}
+class ShopUpdateUserinfoLoadingState extends AppStates {}
 
-class ShopUserDataErrorState extends ShopStates {}
+class ShopUserDataErrorState extends AppStates {}
 
-class ShopUpdateUserinfoErrorState extends ShopStates {}
+class ShopUpdateUserinfoErrorState extends AppStates {}
 
-class ShopUpdateUserinfoSuccessState extends ShopStates {
+class ShopUpdateUserinfoSuccessState extends AppStates {
   ShopModel? model;
 
   ShopUpdateUserinfoSuccessState({this.model});
 }
 
-class ShopChangeCartsSuccessState extends ShopStates {}
+class ShopChangeCartsSuccessState extends AppStates {}
 
-class ShopChangeCartsErrorState extends ShopStates {}
+class ShopChangeCartsErrorState extends AppStates {}
 
-class ShopGetCartsSuccessState extends ShopStates {}
+class ShopGetCartsSuccessState extends AppStates {}
 
-class ShopGetCartsLoadingState extends ShopStates {}
+class ShopGetCartsLoadingState extends AppStates {}
 
-class ShopGetCartsErrorState extends ShopStates {}
+class ShopGetCartsErrorState extends AppStates {}

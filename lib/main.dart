@@ -1,6 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
 import 'package:shop_app/app_constance/theme_manager.dart';
@@ -16,23 +16,12 @@ import 'view_model/bloc observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
   await DioHelper.init();
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
   bool isDark = CacheHelper.getData(key: 'isDark') ?? true;
   GlobalMethods.token = CacheHelper.getData(key: 'token');
-  runApp(EasyLocalization(
-    useOnlyLangCode: true,
-    saveLocale: true,
-    supportedLocales: const [
-      Locale('en'),
-      Locale('ar'),
-    ],
-    fallbackLocale: const Locale('ar'),
-    path: 'assets/translations',
-    child: MyApp(isDark),
-  ));
+  runApp(MyApp(isDark));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,13 +29,12 @@ class MyApp extends StatelessWidget {
 
   const MyApp(this.isDark, {super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => ShopCubit()
+          create: (BuildContext context) => AppCubit()
             ..homeModel()
             ..changeShopTheme(fromShared: isDark)
             ..categoryModel()
@@ -64,27 +52,23 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => SearchCubit(),
         ),
       ],
-      child: BlocBuilder<ShopCubit, ShopStates>(
+      child: BlocBuilder<AppCubit, AppStates>(
         builder: (context, state) {
-          return MaterialApp(
-            supportedLocales: context.supportedLocales,
-            localizationsDelegates: context.localizationDelegates,
-            locale: context.locale,
-            localeResolutionCallback: (deviceLocale, supportLocales) {
-              for (var locale in supportLocales) {
-                if (deviceLocale != null &&
-                    deviceLocale.languageCode == locale.languageCode) {
-                  return deviceLocale;
-                }
-              }
-              return null;
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            useInheritedMediaQuery: true,
+            splitScreenMode: true,
+            builder: (context, child) {
+              return MaterialApp(
+                title: AppStrings.appTitle,
+                debugShowCheckedModeBanner: false,
+                theme: AppCubit.get(context).isDark
+                    ? getLightApplicationTheme()
+                    : getDarkApplicationTheme(),
+                home: const SplashScreen(),
+              );
             },
-            title: AppStrings.appTitle.tr(),
-            debugShowCheckedModeBanner: false,
-            theme: ShopCubit.get(context).isDark
-                ? getLightApplicationTheme()
-                : getDarkApplicationTheme(),
-            home: const SplashScreen(),
           );
         },
       ),

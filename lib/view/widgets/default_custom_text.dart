@@ -27,7 +27,9 @@ class DefaultCustomText extends StatelessWidget {
         alignment: alignment ?? Alignment.center,
         child: Text(
           text,
-          style: style ?? Theme.of(context).textTheme.titleMedium,
+          style: style ??
+              Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: color, fontSize: fontSize, fontWeight: fontWeight),
           maxLines: maxLines,
           overflow: TextOverflow.ellipsis,
         ),

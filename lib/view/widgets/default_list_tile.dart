@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-
 import 'default_custom_text.dart';
 
 class DefaultListTile extends StatelessWidget {
   const DefaultListTile(
-      {Key? key,
+      {super.key,
       required this.title,
       this.subTitle,
-      this.trailingWidget,
+      this.icon,
       required this.function,
-       this.leadingWidget})
-      : super(key: key);
+      this.leadingWidget});
+
   final String title;
   final Widget? subTitle;
   final Widget? leadingWidget;
-  final Widget? trailingWidget;
+  final IconData? icon;
   final Function() function;
 
   @override
@@ -22,13 +21,18 @@ class DefaultListTile extends StatelessWidget {
     return Container(
       color: Theme.of(context).cardColor,
       child: ListTile(
+        style: ListTileStyle.list,
         selectedColor: Colors.yellow,
         title: DefaultCustomText(
-            text: title,
-          ),
+          alignment: Alignment.centerLeft,
+          text: title,
+        ),
         leading: leadingWidget,
         onTap: function,
-        trailing: trailingWidget,
+        trailing: Icon(
+          icon,
+          color: Theme.of(context).splashColor,
+        ),
         subtitle: subTitle,
       ),
     );

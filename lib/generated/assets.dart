@@ -9,7 +9,5 @@ class Assets {
   static const String imagesOnBoardingScreen3 = 'assets/images/onBoardingScreen3.png';
   static const String imagesRegister = 'assets/images/register.png';
   static const String imagesSearch = 'assets/images/search.png';
-  static const String translationsAr = 'assets/translations/ar.json';
-  static const String translationsEn = 'assets/translations/en.json';
 
 }

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
@@ -19,7 +18,7 @@ class AboutMe extends StatelessWidget {
         appBar: AppBar(
           title:  Center(child: Text('About Me', style: Theme.of(context).textTheme.titleMedium,)),
         ),
-        body: BlocConsumer<ShopCubit, ShopStates>(
+        body: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {},
           builder: (context, state) {
             return Column(
@@ -28,7 +27,7 @@ class AboutMe extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: ListTile(
-                    title: Text(AppStrings.nameLabel.tr(),
+                    title: Text(AppStrings.nameLabel,
                         style: Theme.of(context).textTheme.titleLarge),
                     subtitle: Text(name!,
                         style: Theme.of(context).textTheme.titleSmall),
@@ -39,7 +38,7 @@ class AboutMe extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: ListTile(
-                    title: Text(AppStrings.emailLabel.tr(),
+                    title: Text(AppStrings.emailLHint,
                         style: Theme.of(context).textTheme.titleLarge),
                     subtitle: Text(email!,
                         style: Theme.of(context).textTheme.titleSmall),
@@ -50,7 +49,7 @@ class AboutMe extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: ListTile(
-                    title: Text(AppStrings.phoneLabel.tr(),
+                    title: Text(AppStrings.phoneLabel,
                         style: Theme.of(context).textTheme.titleLarge),
                     subtitle: Text(phone!,
                         style: Theme.of(context).textTheme.titleSmall),

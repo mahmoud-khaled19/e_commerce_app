@@ -1,90 +1,89 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/app_constance/app_dimensions.dart';
 import 'package:shop_app/generated/assets.dart';
+import 'package:shop_app/view/screens/layout_screens/product_details.dart';
 import '../../../app_constance/constants_methods.dart';
 import '../../../app_constance/strings_manager.dart';
 import '../../../view_model/app_cubit/app_cubit.dart';
 import '../../../view_model/app_cubit/app_states.dart';
-import '../../widgets/widgets.dart';
-import 'products/products_details/product_details.dart';
+import '../../components/product_item.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({Key? key}) : super(key: key);
+  const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.height;
-
-    return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+    return BlocBuilder<AppCubit, AppStates>(
       builder: (context, state) {
-        ShopCubit cubit = BlocProvider.of(context);
-        print(cubit.carts);
+        AppCubit cubit = BlocProvider.of(context);
         return ConditionalBuilder(
-            condition:  cubit.cartModel?.data?.cartItems?.length !=null,
+            condition: cubit.cartModel?.data?.cartItems?.length != null,
             builder: (BuildContext context) {
               return cubit.carts.values.contains(true)
                   ? Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: GridView.count(
-                  physics: const BouncingScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 1 / 1.35,
-                  mainAxisSpacing: 3,
-                  crossAxisSpacing: 3,
-                  children: List.generate(
-                      cubit.cartModel!.data!.cartItems!.length,
-                          (index) => favoriteItem(
-                          context, cubit.cartModel!.data!.cartItems![index])),
-                ),
-              )
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: GridView.count(
+                        physics: const BouncingScrollPhysics(),
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 5,
+                        childAspectRatio: 0.65,
+                        mainAxisSpacing: 5,
+                        children: List.generate(
+                            cubit.cartModel!.data!.cartItems!.length, (index) {
+                          var data = cubit.cartModel!.data!.cartItems![index].product!;
+                          return GestureDetector(
+                              onTap: () {
+                                GlobalMethods.navigateTo(
+                                    context,
+                                    ProductDetails(
+                                        image: data.image!,
+                                        discount: data.discount!,
+                                        id: data.id!,
+                                        oldPrice: data.oldPrice,
+                                        name: data.name!,
+                                        price: data.price,
+                                        description: data.description!));
+                              },
+                              child: ProductItemShape(
+                                image: data.image!,
+                                id: data.id!,
+                                name: data.name!,
+                                price: data.price,
+                                description: data.description!,
+                                discount: data.discount!,
+                                oldPrice: data.oldPrice!,
+                              ));
+                        }),
+                      ),
+                    )
                   : Center(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: size*0.15,
-                      ),
-                      const Image(
-                        image: AssetImage(Assets.imagesNoNews),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        AppStrings.noCarts.tr(),
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ],
-                  ));
+                      child: Column(
+                      children: [
+                        SizedBox(
+                          height: AppDimensions.screenHeight(context) * 0.15,
+                        ),
+                        const Image(
+                          image: AssetImage(Assets.imagesNoNews),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          AppStrings.noCarts,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
+                    ));
             },
             fallback: (BuildContext context) => const Center(
-              child: CircularProgressIndicator(),
-            ));
+                  child: CircularProgressIndicator(),
+                ));
       },
     );
   }
 }
-
-Widget favoriteItem(context, model) => BlocConsumer<ShopCubit, ShopStates>(
-  listener: (BuildContext context, Object? state) {},
-  builder: (BuildContext context, state) {
-    return GestureDetector(
-      onTap: () {
-        GlobalMethods.navigateTo(
-            context,
-            ProductDetails(
-                image: model.product!.image!,
-                id: model.product!.id!,
-                name: model.product!.name!,
-                price: model.product!.price,
-                description: model.product!.description!));
-      },
-      child: productListItem(context, model),
-    );
-  },
-);

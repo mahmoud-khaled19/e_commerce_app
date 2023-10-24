@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
@@ -14,7 +13,7 @@ import '../../widgets/default_text_form_field.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class LoginScreen extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSize.s14),
+              padding:  EdgeInsets.symmetric(horizontal: AppSize.s14),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -39,11 +38,11 @@ class LoginScreen extends StatelessWidget {
                     ),
                     DefaultCustomText(
                       alignment: Alignment.centerLeft,
-                      text: AppStrings.welcome.tr(),
+                      text: AppStrings.welcome,
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     DefaultCustomText(
-                      text: AppStrings.loginMessage.tr(),
+                      text: AppStrings.loginMessage,
                       alignment: Alignment.centerLeft,
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
@@ -54,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                       // },
                       textType: TextInputType.emailAddress,
                       controller: cubit.emailController,
-                      hint: AppStrings.emailLabel.tr(),
+                      hint: AppStrings.emailLHint,
                     ),
                     DefaultTextFormField(
                         // validate: (String? value) {
@@ -72,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                         suffixIcon: cubit.isVisible
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        hint: AppStrings.passwordLabel.tr(),
+                        hint: AppStrings.passwordLabel,
                         suffixFunction: () {
                           cubit.changePassVisibility();
                         }),
@@ -85,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                       visible: state is! LoginLoadingState,
                       child: DefaultButton(
                           context: context,
-                          text: AppStrings.login.tr(),
+                          text: AppStrings.login,
                           function: () {
                             cubit.userLogin(
                                 context: context,
@@ -99,10 +98,10 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       children: [
                         DefaultCustomText(
-                          text: AppStrings.donHaveEmail.tr(),
+                          text: AppStrings.donHaveEmail,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
-                        const SizedBox(
+                        SizedBox(
                           width: AppSize.s10,
                         ),
                         GestureDetector(
@@ -110,8 +109,8 @@ class LoginScreen extends StatelessWidget {
                             GlobalMethods.navigateAndFinish(
                                 context, const RegisterScreen());
                           },
-                          child: DefaultCustomText(
-                            text: AppStrings.register.tr(),
+                          child: const DefaultCustomText(
+                            text: AppStrings.register,
                             color: Colors.blue,
                           ),
                         )

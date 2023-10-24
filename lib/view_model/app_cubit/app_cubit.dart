@@ -12,15 +12,17 @@ import '../../models/shop_model/shop_model.dart';
 import '../../view/screens/layout_screens/cart_screen.dart';
 import '../../view/screens/layout_screens/categories.dart';
 import '../../view/screens/layout_screens/favorites_screen.dart';
-import '../../view/screens/layout_screens/products/products.dart';
+import '../../view/screens/layout_screens/products.dart';
 import '../../view/screens/layout_screens/settings/settings.dart';
 import '../shared/network/local/shared_preferences.dart';
 import '../shared/network/remote/dio.dart';
 import 'app_states.dart';
 
-class ShopCubit extends Cubit<ShopStates> {
-  ShopCubit() : super(ShopInitialState());
-  HomeModelData? model;
+class AppCubit extends Cubit<AppStates> {
+  AppCubit() : super(ShopInitialState());
+  HomeModelData? homeModelData;
+  ProductsModel? productsModel;
+
   ShopModel? userInfo;
   ShopModel? updateInfo;
   FavoritesModel? favModel;
@@ -29,7 +31,7 @@ class ShopCubit extends Cubit<ShopStates> {
   Map<int, bool> carts = {};
   CategoryModel? catModel;
 
-  static ShopCubit get(context) => BlocProvider.of(context);
+  static AppCubit get(context) => BlocProvider.of(context);
   List<Widget> screens = [
     const ProductsScreen(),
     const CategoriesScreen(),
@@ -50,6 +52,13 @@ class ShopCubit extends Cubit<ShopStates> {
         label: AppStrings.favouritesNavBar),
     BottomNavigationBarItem(
         icon: Icon(Icons.settings), label: AppStrings.settingsNavBar),
+  ];
+  List<String> bottomNavTitles = [
+    AppStrings.homeNavBar,
+    AppStrings.categoriesNavBar,
+    AppStrings.favouritesNavBar,
+    AppStrings.cartNavBar,
+    AppStrings.settingsNavBar,
   ];
 
   void changeShopTheme({bool? fromShared}) {
@@ -74,8 +83,8 @@ class ShopCubit extends Cubit<ShopStates> {
     emit(ShopHomeLoadingState());
     DioHelper.getData(url: ApiConstance.home, token: GlobalMethods.token)
         .then((value) {
-      model = HomeModelData.fromJson(value.data);
-      for (var element in model!.data!.products) {
+      homeModelData = HomeModelData.fromJson(value.data);
+      for (var element in homeModelData!.data!.products) {
         favourites.addAll({element.id!: element.favorite!});
         carts.addAll({element.id!: element.inCart!});
       }

@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shop_app/app_constance/style_manager.dart';
 import 'package:shop_app/app_constance/values_manager.dart';
 import 'colors_manager.dart';
-import 'fonts_manager.dart';
 
 ThemeData getLightApplicationTheme() {
   return ThemeData(
@@ -13,15 +12,14 @@ ThemeData getLightApplicationTheme() {
       ),
       cardColor: ColorsManager.lightCardColor,
       appBarTheme: AppBarTheme(
-          centerTitle: true,
-          titleTextStyle: GoogleFonts.poppins(
+          titleTextStyle: GoogleFonts.akshar(
               color: Colors.black,
-              fontSize: AppSize.s14,
+              fontSize: AppSize.s16,
               letterSpacing: 0.6,
               fontWeight: FontWeight.w500),
           backgroundColor: ColorsManager.lightScaffoldColor,
           elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.black, size: AppSize.s18)),
+          iconTheme: IconThemeData(color: Colors.black, size: AppSize.s18)),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: ColorsManager.lightScaffoldColor,
         type: BottomNavigationBarType.fixed,
@@ -30,8 +28,8 @@ ThemeData getLightApplicationTheme() {
         unselectedIconTheme: const IconThemeData(
           color: Colors.grey,
         ),
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
+        showSelectedLabels: false,
+        showUnselectedLabels: false
       ),
       iconTheme: IconThemeData(
           color: ColorsManager.lightSecondColor, size: AppSize.s30),
@@ -46,7 +44,7 @@ ThemeData getLightApplicationTheme() {
           titleLarge: getSemiBoldStyle(
               fontSize: AppSize.s16, color: ColorsManager.black),
           titleMedium:
-          getMediumStyle(fontSize: AppSize.s14, color: ColorsManager.black),
+              getMediumStyle(fontSize: AppSize.s14, color: ColorsManager.black),
           titleSmall: getRegularStyle(
               fontSize: AppSize.s12, color: ColorsManager.grey)),
       brightness: Brightness.light);
@@ -61,22 +59,21 @@ ThemeData getDarkApplicationTheme() {
         elevation: 2,
       ),
       appBarTheme: AppBarTheme(
-          titleTextStyle: GoogleFonts.poppins(
+          titleTextStyle: GoogleFonts.akshar(
               color: Colors.white,
               fontSize: AppSize.s16,
               letterSpacing: 0.6,
               fontWeight: FontWeight.w500),
           backgroundColor: ColorsManager.darkScaffoldColor,
           elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.white, size: AppSize.s18)),
+          iconTheme: IconThemeData(color: Colors.white, size: AppSize.s18)),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: ColorsManager.darkScaffoldColor,
         type: BottomNavigationBarType.shifting,
         elevation: 0,
         selectedItemColor: ColorsManager.lightSecondColor,
         unselectedItemColor: Colors.grey,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
+        showSelectedLabels: false,
       ),
       iconTheme: IconThemeData(
           color: ColorsManager.darkSecondColor, size: AppSize.s30),
@@ -86,11 +83,11 @@ ThemeData getDarkApplicationTheme() {
       disabledColor: ColorsManager.grey,
       textTheme: TextTheme(
           headlineLarge:
-          getSemiBoldStyle(fontSize: AppSize.s18, color: Colors.white),
+              getSemiBoldStyle(fontSize: AppSize.s18, color: Colors.white),
           titleLarge:
-          getSemiBoldStyle(fontSize: AppSize.s16, color: Colors.white),
+              getSemiBoldStyle(fontSize: AppSize.s16, color: Colors.white),
           titleMedium:
-          getMediumStyle(fontSize: AppSize.s14, color: Colors.white),
+              getMediumStyle(fontSize: AppSize.s14, color: Colors.white),
           titleSmall: getRegularStyle(
               fontSize: AppSize.s12, color: ColorsManager.grey)),
       brightness: Brightness.dark);

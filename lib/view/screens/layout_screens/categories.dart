@@ -9,8 +9,8 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ShopCubit cubit = BlocProvider.of(context);
-    return BlocConsumer<ShopCubit, ShopStates>(
+    AppCubit cubit = BlocProvider.of(context);
+    return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(

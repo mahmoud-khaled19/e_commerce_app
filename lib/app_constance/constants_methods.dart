@@ -33,9 +33,6 @@ class GlobalMethods {
       if (value!) {
         navigateAndFinish(context, const LoginScreen());
       }
-      if (kDebugMode) {
-        print('remove token');
-      }
     });
   }
 
