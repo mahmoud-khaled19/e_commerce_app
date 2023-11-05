@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/api_constance.dart';
-import '../../../../models/shop_model/shop_model.dart';
+import '../../models/shop_model.dart';
 import '../../app_constance/constants_methods.dart';
 import '../../view/screens/layout_screens/home_layout.dart';
 import '../shared/network/local/shared_preferences.dart';

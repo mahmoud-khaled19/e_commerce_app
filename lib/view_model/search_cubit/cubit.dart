@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/models/search_model/search_model.dart';
+import 'package:shop_app/models/search_model.dart';
 import 'package:shop_app/view_model/search_cubit/states.dart';
 import '../../../app_constance/api_constance.dart';
 import '../../../app_constance/constants_methods.dart';

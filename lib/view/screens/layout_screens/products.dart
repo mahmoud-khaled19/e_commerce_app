@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
+import 'package:shop_app/view/screens/layout_screens/product_details.dart';
 import 'package:shop_app/view/widgets/default_custom_text.dart';
+import '../../../app_constance/constants_methods.dart';
 import '../../../app_constance/strings_manager.dart';
 import '../../../app_constance/values_manager.dart';
 import '../../../view_model/app_cubit/app_cubit.dart';
@@ -29,33 +31,30 @@ class ProductsScreen extends StatelessWidget {
                   children: [
                     CarouselSlider(
                         items: cubit.homeModelData!.data!.banners
-                            .map((e) =>
-                            CachedNetworkImage(
-                              imageUrl: e.image!,
-                              width: double.infinity,
-                              fit: BoxFit.fill,
-                              errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
-                              placeholder: (context, url) =>
-                                  Shimmer.fromColors(
+                            .map((e) => CachedNetworkImage(
+                                  imageUrl: e.image!,
+                                  width: double.infinity,
+                                  fit: BoxFit.fill,
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                  placeholder: (context, url) =>
+                                      Shimmer.fromColors(
                                     baseColor: Colors.grey[800]!,
                                     highlightColor: Colors.grey[500]!,
                                     child: Container(
                                       margin: EdgeInsets.symmetric(
                                           horizontal: AppSize.s10),
                                       padding: const EdgeInsets.all(10),
-                                      color: Theme
-                                          .of(context)
-                                          .splashColor,
+                                      color: Theme.of(context).splashColor,
                                       height:
-                                      AppDimensions.screenHeight(context) *
-                                          0.25,
+                                          AppDimensions.screenHeight(context) *
+                                              0.25,
                                       width: 1,
                                     ),
                                   ),
-                              height: AppDimensions.screenHeight(context) *
-                                  0.25,
-                            ))
+                                  height: AppDimensions.screenHeight(context) *
+                                      0.25,
+                                ))
                             .toList(),
                         options: CarouselOptions(
                           height: 200,
@@ -76,10 +75,7 @@ class ProductsScreen extends StatelessWidget {
                       child: DefaultCustomText(
                         alignment: Alignment.centerLeft,
                         text: AppStrings.newProducts,
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .titleLarge,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     SizedBox(
@@ -90,7 +86,7 @@ class ProductsScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 5,
                           childAspectRatio: 0.71,
@@ -98,14 +94,29 @@ class ProductsScreen extends StatelessWidget {
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           var data = cubit.homeModelData!.data!.products[index];
-                          return ProductItemShape(
-                            image: data.image!,
-                            id: data.id!,
-                            name: data.name!,
-                            price: data.price!,
-                            description: data.description!,
-                            discount: data.discount!,
-                            oldPrice: data.oldPrice!,);
+                          return GestureDetector(
+                            onTap: () {
+                              GlobalMethods.navigateTo(
+                                  context,
+                                  ProductDetails(
+                                      image: data.image!,
+                                      discount: data.discount,
+                                      id: data.id!,
+                                      name: data.name!,
+                                      price: data.price!,
+                                      oldPrice: data.oldPrice,
+                                      description: data.description!));
+                            },
+                            child: ProductItemShape(
+                              image: data.image!,
+                              id: data.id!,
+                              name: data.name!,
+                              price: data.price!,
+                              description: data.description!,
+                              discount: data.discount!,
+                              oldPrice: data.oldPrice!,
+                            ),
+                          );
                         })
                   ]),
             );

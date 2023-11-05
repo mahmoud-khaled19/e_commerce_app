@@ -1,16 +1,15 @@
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/models/carts_model/carts_model.dart';
-import 'package:shop_app/models/favorite_model/favorites_model.dart';
+import 'package:shop_app/models/carts_model.dart';
+import 'package:shop_app/models/favorites_model.dart';
 import '../../app_constance/api_constance.dart';
 import '../../app_constance/constants_methods.dart';
 import '../../app_constance/strings_manager.dart';
-import '../../models/category_model/category_model.dart';
-import '../../models/products_model/products_model.dart';
-import '../../models/shop_model/shop_model.dart';
+import '../../models/products_model.dart';
+import '../../models/shop_model.dart';
 import '../../view/screens/layout_screens/cart_screen.dart';
-import '../../view/screens/layout_screens/categories.dart';
 import '../../view/screens/layout_screens/favorites_screen.dart';
 import '../../view/screens/layout_screens/products.dart';
 import '../../view/screens/layout_screens/settings/settings.dart';
@@ -21,30 +20,24 @@ import 'app_states.dart';
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(ShopInitialState());
   HomeModelData? homeModelData;
-  ProductsModel? productsModel;
-
   ShopModel? userInfo;
   ShopModel? updateInfo;
   FavoritesModel? favModel;
   CartsModel? cartModel;
   Map<int, bool> favourites = {};
   Map<int, bool> carts = {};
-  CategoryModel? catModel;
+  bool isDark = false;
 
   static AppCubit get(context) => BlocProvider.of(context);
   List<Widget> screens = [
     const ProductsScreen(),
-    const CategoriesScreen(),
     const FavoritesScreen(),
     const CartScreen(),
-    SettingsScreen(),
+    const SettingsScreen(),
   ];
-  bool isDark = false;
   List<BottomNavigationBarItem> bottomNavBarItems = const [
     BottomNavigationBarItem(
         icon: Icon(Icons.home), label: AppStrings.homeNavBar),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.apps), label: AppStrings.categoriesNavBar),
     BottomNavigationBarItem(
         icon: Icon(Icons.favorite), label: AppStrings.favouritesNavBar),
     BottomNavigationBarItem(
@@ -55,7 +48,6 @@ class AppCubit extends Cubit<AppStates> {
   ];
   List<String> bottomNavTitles = [
     AppStrings.homeNavBar,
-    AppStrings.categoriesNavBar,
     AppStrings.favouritesNavBar,
     AppStrings.cartNavBar,
     AppStrings.settingsNavBar,
@@ -76,6 +68,11 @@ class AppCubit extends Cubit<AppStates> {
 
   void changeBottomNavBarState(index) {
     currentIndex = index;
+    if (index == 1) {
+      getFavoritesItems();
+    } else if (index == 2) {
+      getCartsItems();
+    }
     emit(ShopChangeNavBarStates());
   }
 
@@ -91,25 +88,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(ShopHomeSuccessState());
     }).catchError((error) {
       emit(ShopHomeErrorState());
-      if (kDebugMode) {
-        print(error.toString());
-      }
-    });
-  }
-
-  void categoryModel() {
-    DioHelper.getData(url: ApiConstance.category).then((value) {
-      catModel = CategoryModel.fromJson(value.data);
-
-      if (kDebugMode) {
-        print('Category came SuccessFully');
-      }
-      emit(ShopCategorySuccessState());
-    }).catchError((error) {
-      emit(ShopCategoryErrorState());
-      if (kDebugMode) {
-        print(error.toString());
-      }
     });
   }
 
@@ -161,15 +139,9 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.getData(url: ApiConstance.profile, token: GlobalMethods.token)
         .then((value) {
       userInfo = ShopModel.fromJson(value.data);
-      if (kDebugMode) {
-        print(userInfo!.data!.name);
-      }
       emit(ShopUserDataSuccessState());
     }).catchError((error) {
       emit(ShopUserDataErrorState());
-      if (kDebugMode) {
-        print(error.toString());
-      }
     });
   }
 
@@ -188,15 +160,9 @@ class AppCubit extends Cubit<AppStates> {
           'email': email,
         }).then((value) {
       updateInfo = ShopModel.fromJson(value.data);
-      if (kDebugMode) {
-        print(updateInfo?.data?.name);
-      }
       emit(ShopUpdateUserinfoSuccessState());
     }).catchError((error) {
       emit(ShopUpdateUserinfoErrorState());
-      if (kDebugMode) {
-        print(error.toString());
-      }
     });
   }
 
@@ -209,7 +175,7 @@ class AppCubit extends Cubit<AppStates> {
             token: GlobalMethods.token)
         .then((value) {
       cartModel = CartsModel.fromJson(value.data);
-      if (catModel?.status == false) {
+      if (cartModel?.status == false) {
         carts[productId] = !carts[productId]!;
       }
       getCartsItems();
@@ -220,24 +186,66 @@ class AppCubit extends Cubit<AppStates> {
     });
 
     if (carts[productId]!) {
-      GlobalMethods.showToast(
-          context, 'تم إضافه المنتج إلي الشنطه', Colors.green);
+      GlobalMethods.showToast(context, 'Added Successfully', Colors.green);
     } else {
-      GlobalMethods.showToast(
-          context, 'تم حذف المنتج من الشنطه ', Colors.yellow);
+      GlobalMethods.showToast(context, 'Removed Successfully', Colors.red);
     }
   }
 
   Future<void> getCartsItems() async {
-    emit(ShopGetCartsLoadingState());
+    emit(GetCartsLoadingState());
     await DioHelper.getData(url: ApiConstance.cart, token: GlobalMethods.token)
         .then((value) {
       cartModel = CartsModel.fromJson(value.data);
-
-      emit(ShopGetCartsSuccessState());
+      emit(GetCartsSuccessState());
     }).catchError((error) {
-      emit(ShopGetCartsErrorState());
-      print(error.toString());
+      emit(GetCartsErrorState());
     });
+  }
+
+  Future<void> updateCartItemQuantity({
+    required int cartId,
+    required int quantity,
+  }) async {
+    print('Updating cart item quantity - cartId: $cartId, quantity: $quantity');
+    emit(UpdateCartItemQuantityLoadingState());
+    try {
+      final response = await DioHelper.putData(
+          url: '${ApiConstance.cart}/$cartId',
+          data: {'quantity': quantity},
+          token: GlobalMethods.token);
+
+      if (response.statusCode == 200) {
+        cartModel = CartsModel.fromJson(response.data);
+        emit(UpdateCartItemQuantitySuccessState());
+        getCartsItems();
+        print('Quantity updated successfully');
+      } else {
+        emit(UpdateCartItemQuantityErrorState());
+        print(
+            'Quantity update failed with status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      emit(UpdateCartItemQuantityErrorState());
+      print('Error updating quantity: $error');
+    }
+  }
+
+  increaseItemsQuantity({required int cartId, required quantity}) {
+    quantity++;
+    log('updated quantity $quantity');
+    log('quantity $quantity');
+    updateCartItemQuantity(cartId: cartId, quantity: quantity);
+    emit(IncreaseCounterState());
+  }
+
+  decreaseItemsQuantity({required int cartId, required quantity}) {
+    if (quantity > 1) {
+      quantity--;
+      updateCartItemQuantity(cartId: cartId, quantity: quantity);
+      emit(IncreaseCounterState());
+    } else {
+      return;
+    }
   }
 }

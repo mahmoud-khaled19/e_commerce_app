@@ -34,6 +34,7 @@ class ProductDetails extends StatelessWidget {
       builder: (BuildContext context, state) {
         AppCubit cubit = BlocProvider.of(context);
         return Scaffold(
+          appBar: AppBar(),
           body: SafeArea(
             child: Column(
               children: [
@@ -124,7 +125,7 @@ class ProductDetails extends StatelessWidget {
                         Expanded(
                             child: InkWell(
                           onTap: () {
-                            AppCubit.get(context).changeCartsState(id, context);
+                             cubit.changeCartsState(id, context);
                           },
                           child: Container(
                               color: Theme.of(context).cardColor,

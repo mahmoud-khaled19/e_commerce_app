@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class DefaultCustomText extends StatelessWidget {
   const DefaultCustomText({
-    Key? key,
+    super.key,
     required this.text,
     this.maxLines,
     this.fontSize,
@@ -10,7 +10,7 @@ class DefaultCustomText extends StatelessWidget {
     this.color,
     this.fontWeight,
     this.style,
-  }) : super(key: key);
+  });
   final String text;
   final int? maxLines;
   final Color? color;

@@ -4,13 +4,13 @@ import 'default_custom_text.dart';
 
 class DefaultButton extends StatelessWidget {
   const DefaultButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.function,
     required this.context,
     this.width,
     this.color,
-  }) : super(key: key);
+  });
   final Function() function;
   final String text;
   final double? width;
@@ -22,7 +22,7 @@ class DefaultButton extends StatelessWidget {
     return Container(
       width: width ?? AppSize.s120,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(AppSize.s10),
         color: color ?? Theme.of(context).splashColor,
       ),
       child: TextButton(

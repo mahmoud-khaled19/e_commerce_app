@@ -9,5 +9,4 @@ class ApiConstance {
   static const String update ='update-profile' ;
   static const String search ='products/search' ;
   static const String cart ='carts' ;
-
 }

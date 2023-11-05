@@ -18,33 +18,34 @@ class DefaultPopMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton<int>(
-      icon: const Icon(Icons.arrow_forward_ios_outlined),
-      padding: EdgeInsets.only(left: AppSize.s20),
-      itemBuilder: (context) => [
-        PopupMenuItem<int>(
-          value: 0,
-          child: GestureDetector(
-            onTap: itemOneFunction,
-            child: DefaultCustomText(
-              text: itemOneText,
-              color: Theme.of(context).splashColor,
-              alignment: Alignment.center,
+    return CircleAvatar(
+      backgroundColor: Colors.grey,
+      radius: 20,
+      child: Center(
+        child: PopupMenuButton<int>(
+          icon:  Icon(Icons.more_vert,color:Colors.white,size: AppSize.s20,),
+          itemBuilder: (context) => [
+            PopupMenuItem<int>(
+              value: 0,
+              child: GestureDetector(
+                onTap: itemOneFunction,
+                child: DefaultCustomText(
+                  text: itemOneText,
+                ),
+              ),
             ),
-          ),
-        ),
-        PopupMenuItem<int>(
-          value: 1,
-          child: GestureDetector(
-            onTap: itemTwoFunction,
-            child: DefaultCustomText(
-              text: itemTwoText,
-              color: Theme.of(context).splashColor,
-              alignment: Alignment.center,
+            PopupMenuItem<int>(
+              value: 1,
+              child: GestureDetector(
+                onTap: itemTwoFunction,
+                child: DefaultCustomText(
+                  text: itemTwoText,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

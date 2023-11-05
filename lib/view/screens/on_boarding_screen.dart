@@ -13,7 +13,7 @@ import '../widgets/elevated_button_widget.dart';
 import 'auth_screens/register_screen.dart';
 
 class OnBoardingView extends StatefulWidget {
-  const OnBoardingView({Key? key}) : super(key: key);
+  const OnBoardingView({super.key});
 
   @override
   State<OnBoardingView> createState() => _OnBoardingViewState();
@@ -72,7 +72,7 @@ class _OnBoardingViewState extends State<OnBoardingView>
                 ),
                 SizedBox(height: AppSize.s20),
                 SizedBox(
-                  height: hSize * 0.62,
+                  height: hSize * 0.65,
                   child: PageView.builder(
                     controller: OnBoardingViewModel.boardingController,
                     physics: const BouncingScrollPhysics(),

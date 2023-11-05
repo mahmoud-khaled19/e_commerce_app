@@ -8,6 +8,7 @@ import 'package:shop_app/view/screens/splash_screen.dart';
 import 'package:shop_app/view_model/app_cubit/app_cubit.dart';
 import 'package:shop_app/view_model/app_cubit/app_states.dart';
 import 'package:shop_app/view_model/login_cubit/login_cubit.dart';
+import 'package:shop_app/view_model/payment_cubit/payment_cubit.dart';
 import 'package:shop_app/view_model/register_cubit/register_cubit.dart';
 import 'package:shop_app/view_model/search_cubit/cubit.dart';
 import 'package:shop_app/view_model/shared/network/local/shared_preferences.dart';
@@ -34,16 +35,15 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => AppCubit()
-            ..homeModel()
-            ..changeShopTheme(fromShared: isDark)
-            ..categoryModel()
-            ..getFavoritesItems()
-            ..getUserdata()
-            ..getCartsItems(),
-        ),
+            create: (BuildContext context) => AppCubit()
+              ..homeModel()
+              ..changeShopTheme(fromShared: isDark)
+              ..getUserdata()),
         BlocProvider(
           create: (BuildContext context) => RegisterCubit(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => PaymentCubit(),
         ),
         BlocProvider(
           create: (BuildContext context) => LoginCubit(),

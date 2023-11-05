@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shop_app/models/register_model/register_model.dart';
+import 'package:shop_app/models/register_model.dart';
 import 'package:shop_app/view/screens/auth_screens/login_screen.dart';
 import 'package:shop_app/view_model/register_cubit/register_app_states.dart';
 import '../../../app_constance/api_constance.dart';

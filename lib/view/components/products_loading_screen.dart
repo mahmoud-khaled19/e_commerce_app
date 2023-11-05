@@ -20,9 +20,12 @@ class ProductsLoadingScreen extends StatelessWidget {
                   baseColor: Colors.grey[800]!,
                   highlightColor: Colors.grey[500]!,
                   child: Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).splashColor,
+                        borderRadius: BorderRadius.circular(AppSize.s10)
+                    ),
                     margin: EdgeInsets.symmetric(horizontal: AppSize.s10),
                     padding: const EdgeInsets.all(10),
-                    color: Theme.of(context).splashColor,
                     height: AppDimensions.screenHeight(context) * 0.25,
                     width: double.infinity,
                   ),
@@ -47,7 +50,7 @@ class ProductsLoadingScreen extends StatelessWidget {
             highlightColor: Colors.grey[500]!,
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppSize.s20),
+                borderRadius: BorderRadius.circular(AppSize.s10),
                 color: Theme.of(context).splashColor,
               ),
               height: AppSize.s40,
@@ -73,7 +76,10 @@ class ProductsLoadingScreen extends StatelessWidget {
                   baseColor: Colors.grey[800]!,
                   highlightColor: Colors.grey[500]!,
                   child: Container(
-                    color: Theme.of(context).splashColor,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(AppSize.s10),
+                      color: Theme.of(context).splashColor,
+                    ),
                     padding: const EdgeInsets.all(10),
                     height: AppSize.s100,
                     width: AppSize.s100,
