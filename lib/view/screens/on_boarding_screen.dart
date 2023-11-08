@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/view/screens/auth_screens/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../app_constance/colors_manager.dart';
 import '../../app_constance/constants_methods.dart';
 import '../../app_constance/fonts_manager.dart';

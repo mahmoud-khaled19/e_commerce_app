@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
 import 'package:shop_app/app_constance/theme_manager.dart';
@@ -13,9 +14,11 @@ import 'package:shop_app/view_model/register_cubit/register_cubit.dart';
 import 'package:shop_app/view_model/search_cubit/cubit.dart';
 import 'package:shop_app/view_model/shared/network/local/shared_preferences.dart';
 import 'package:shop_app/view_model/shared/network/remote/dio.dart';
+import 'app_constance/stripe_keys.dart';
 import 'view_model/bloc observer.dart';
 
 void main() async {
+  Stripe.publishableKey = StripeKeys.publishedKey;
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init();
   await CacheHelper.init();

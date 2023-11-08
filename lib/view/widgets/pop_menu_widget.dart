@@ -20,7 +20,7 @@ class DefaultPopMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       backgroundColor: Colors.grey,
-      radius: 20,
+      radius: AppSize.s10,
       child: Center(
         child: PopupMenuButton<int>(
           icon:  Icon(Icons.more_vert,color:Colors.white,size: AppSize.s20,),

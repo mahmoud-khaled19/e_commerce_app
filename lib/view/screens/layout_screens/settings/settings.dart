@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
+import 'package:shop_app/view/screens/auth_screens/login_screen.dart';
 import 'package:shop_app/view/screens/layout_screens/settings/privacy_screen.dart';
 import 'package:shop_app/view/widgets/default_list_tile.dart';
 import '../../../../view_model/app_cubit/app_cubit.dart';
@@ -42,27 +43,29 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: size * 0.01),
                 DefaultListTile(
-                  title: AppStrings.signOut,
-                  function: () {
-                    GlobalMethods.signOut(context);
-                    GlobalMethods.token = '';
-                  },
-                  icon: Icons.logout,
-                ),
-                // DefaultListTile(
-                //   title: AppStrings.aboutMe,
-                //   function: () {
-                //     var data = cubit.userInfo!.data!;
-                //     GlobalMethods.navigateTo(
-                //         context,
-                //         AboutMe(
-                //           name: data.name,
-                //           phone: data.phone,
-                //           email: data.email,
-                //         ));
-                //   },
-                //   icon: Icons.person,
-                // ),
+                    title: AppStrings.signOut,
+                    function: () {
+                      GlobalMethods.showAlertDialog(
+                        context: context,
+                        title: const Text(AppStrings.signOut),
+                        content: const Text('Are you Sure to Sign Out'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              GlobalMethods.navigateAndFinish(context, const LoginScreen());
+                            },
+                            child: const Text('Ok'),
+                          ),
+                        ],
+                      );
+                    },
+                    icon: Icons.logout_outlined),
               ],
             ),
           ),

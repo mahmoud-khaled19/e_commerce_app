@@ -7,7 +7,7 @@ abstract class OnBoardingViewModel {
   static bool isLast = false;
   static List<BoardingList> boardingList = [
     BoardingList(
-      'Your E-Commerce Journey Begins',
+      'Your Journey Begins',
       'Welcome to the ultimate shopping destination!',
       'Start your journey with Our App & Discover',
       Assets.imagesOnBoardingScreen1,

@@ -134,31 +134,44 @@ class CartScreen extends StatelessWidget {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.all(
-                            AppSize.s8,
-                          ),
-                          height: AppDimensions.screenHeight(context) * 0.08,
+                          padding: EdgeInsets.all(AppSize.s8),
+                          height: AppDimensions.screenHeight(context) * 0.09,
+                          width: AppDimensions.screenWidth(context) * 0.7,
                           decoration: BoxDecoration(
                               color: Theme.of(context).cardColor,
                               borderRadius: BorderRadius.circular(AppSize.s10)),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              DefaultCustomText(
-                                text: 'AED ${cubit.cartModel!.data!.total}',
-                                alignment: Alignment.bottomCenter,
-                              ),
-                              SizedBox(
-                                width: AppSize.s18,
-                              ),
                               DefaultButton(
-                                  text:
-                                      'Check out (${cubit.cartModel!.data!.cartItems!.length})',
+                                  text: 'Check out',
                                   function: () {
                                     GlobalMethods.navigateTo(
                                         context, const PaymentScreen());
                                   },
                                   context: context),
+                              SizedBox(
+                                width: AppSize.s18,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  DefaultCustomText(
+                                    text:
+                                        '(${cubit.cartModel!.data!.cartItems!.length}) items',
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                  Expanded(
+                                    child: DefaultCustomText(
+                                      text:
+                                          'AED ${cubit.cartModel!.data!.total}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         )
@@ -166,9 +179,7 @@ class CartScreen extends StatelessWidget {
                     ),
                   );
         }
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const SelectedItemsLoadingScreen();
       },
     );
   }

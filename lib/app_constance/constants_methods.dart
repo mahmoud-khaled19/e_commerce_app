@@ -28,10 +28,8 @@ class GlobalMethods {
 
   static void signOut(context) {
     CacheHelper.removeData(key: 'token').then((value) {
-      CacheHelper.removeData(key: 'token');
-      if (value!) {
-        navigateAndFinish(context, const LoginScreen());
-      }
+      navigateAndFinish(context, const LoginScreen());
+
     });
   }
 
@@ -54,5 +52,30 @@ class GlobalMethods {
     }
   }
 
+  static showAlertDialog({
+    required BuildContext context,
+    Widget? title,
+    Widget? content,
+    List<Widget>? actions,
+  }) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Theme.of(context).cardColor,
+            title: title,
+            content: content,
+            actions: actions,
+          );
+        });
+  }
+
+  // static openWhatsApp(String phoneNumber) async {
+  //   final Uri url = Uri.parse('https://wa.me/$phoneNumber');
+  //   await launchUrl(
+  //     url,
+  //     mode: LaunchMode.externalApplication,
+  //   );
+  // }
   static String? token = '';
 }
