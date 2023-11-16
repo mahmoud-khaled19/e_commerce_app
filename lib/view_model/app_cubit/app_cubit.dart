@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/models/carts_model.dart';
@@ -8,50 +7,22 @@ import '../../app_constance/api_constance.dart';
 import '../../app_constance/constants_methods.dart';
 import '../../app_constance/strings_manager.dart';
 import '../../models/products_model.dart';
-import '../../models/shop_model.dart';
-import '../../view/screens/layout_screens/cart_screen.dart';
-import '../../view/screens/layout_screens/favorites_screen.dart';
-import '../../view/screens/layout_screens/products.dart';
-import '../../view/screens/layout_screens/settings/settings.dart';
 import '../shared/network/local/shared_preferences.dart';
 import '../shared/network/remote/dio.dart';
 import 'app_states.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(ShopInitialState());
+
+  static AppCubit get(context) => BlocProvider.of(context);
+
   HomeModelData? homeModelData;
-  ShopModel? userInfo;
-  ShopModel? updateInfo;
   FavoritesModel? favModel;
   CartsModel? cartModel;
   Map<int, bool> favourites = {};
   Map<int, bool> carts = {};
   bool isDark = false;
-
-  static AppCubit get(context) => BlocProvider.of(context);
-  List<Widget> screens = [
-    const ProductsScreen(),
-    const FavoritesScreen(),
-    const CartScreen(),
-    const SettingsScreen(),
-  ];
-  List<BottomNavigationBarItem> bottomNavBarItems = const [
-    BottomNavigationBarItem(
-        icon: Icon(Icons.home), label: AppStrings.homeNavBar),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.favorite), label: AppStrings.favouritesNavBar),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.shopping_cart_rounded),
-        label: AppStrings.favouritesNavBar),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.settings), label: AppStrings.settingsNavBar),
-  ];
-  List<String> bottomNavTitles = [
-    AppStrings.homeNavBar,
-    AppStrings.favouritesNavBar,
-    AppStrings.cartNavBar,
-    AppStrings.settingsNavBar,
-  ];
+  int bottomNavIndex = 0;
 
   void changeShopTheme({bool? fromShared}) {
     if (fromShared != null) {
@@ -64,10 +35,8 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  int currentIndex = 0;
-
   void changeBottomNavBarState(index) {
-    currentIndex = index;
+    bottomNavIndex = index;
     if (index == 1) {
       getFavoritesItems();
     } else if (index == 2) {
@@ -115,10 +84,10 @@ class AppCubit extends Cubit<AppStates> {
     if (favModel?.status != null) {
       if (favourites[productId]!) {
         GlobalMethods.showToast(
-            context, 'تم إضافه المنتج إلي التفضيلات', Colors.green);
+            context, AppStrings.addedSuccessfully, Colors.green);
       } else {
         GlobalMethods.showToast(
-            context, 'تم حذف المنتج من قائمة التفضيلات ', Colors.yellow);
+            context, AppStrings.removedSuccessfully, Colors.yellow);
       }
     }
   }
@@ -131,38 +100,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(ShopFavoritesSuccessState());
     }).catchError((error) {
       emit(ShopFavoritesErrorState());
-    });
-  }
-
-  void getUserdata() {
-    emit(ShopUserDataLoadingState());
-    DioHelper.getData(url: ApiConstance.profile, token: GlobalMethods.token)
-        .then((value) {
-      userInfo = ShopModel.fromJson(value.data);
-      emit(ShopUserDataSuccessState());
-    }).catchError((error) {
-      emit(ShopUserDataErrorState());
-    });
-  }
-
-  void updateUserdata({
-    required String name,
-    required String phone,
-    required String email,
-  }) {
-    emit(ShopUpdateUserinfoLoadingState());
-    DioHelper.putData(
-        url: ApiConstance.update,
-        token: GlobalMethods.token,
-        data: {
-          'name': name,
-          'phone': phone,
-          'email': email,
-        }).then((value) {
-      updateInfo = ShopModel.fromJson(value.data);
-      emit(ShopUpdateUserinfoSuccessState());
-    }).catchError((error) {
-      emit(ShopUpdateUserinfoErrorState());
     });
   }
 
@@ -186,9 +123,11 @@ class AppCubit extends Cubit<AppStates> {
     });
 
     if (carts[productId]!) {
-      GlobalMethods.showToast(context, 'Added Successfully', Colors.green);
+      GlobalMethods.showToast(
+          context, AppStrings.addedSuccessfully, Colors.green);
     } else {
-      GlobalMethods.showToast(context, 'Removed Successfully', Colors.red);
+      GlobalMethods.showToast(
+          context, AppStrings.removedSuccessfully, Colors.red);
     }
   }
 
@@ -207,7 +146,7 @@ class AppCubit extends Cubit<AppStates> {
     required int cartId,
     required int quantity,
   }) async {
-    print('Updating cart item quantity - cartId: $cartId, quantity: $quantity');
+    log('Updating cart item quantity - cartId: $cartId, quantity: $quantity');
     emit(UpdateCartItemQuantityLoadingState());
     try {
       final response = await DioHelper.putData(
@@ -219,15 +158,13 @@ class AppCubit extends Cubit<AppStates> {
         cartModel = CartsModel.fromJson(response.data);
         emit(UpdateCartItemQuantitySuccessState());
         getCartsItems();
-        print('Quantity updated successfully');
+        log('Quantity updated successfully');
       } else {
         emit(UpdateCartItemQuantityErrorState());
-        print(
-            'Quantity update failed with status code: ${response.statusCode}');
+        log('Quantity update failed with status code: ${response.statusCode}');
       }
     } catch (error) {
       emit(UpdateCartItemQuantityErrorState());
-      print('Error updating quantity: $error');
     }
   }
 

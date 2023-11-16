@@ -53,3 +53,4 @@ class UpdateCartItemQuantityLoadingState extends AppStates {}
 class UpdateCartItemQuantityErrorState extends AppStates {}
 
 class IncreaseCounterState extends AppStates {}
+class ChangeEditAbilityState extends AppStates {}

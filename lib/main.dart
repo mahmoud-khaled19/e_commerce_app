@@ -5,7 +5,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
 import 'package:shop_app/app_constance/theme_manager.dart';
-import 'package:shop_app/view/screens/splash_screen.dart';
+import 'package:shop_app/view/screens/inner_screens/splash_screen.dart';
 import 'package:shop_app/view_model/app_cubit/app_cubit.dart';
 import 'package:shop_app/view_model/app_cubit/app_states.dart';
 import 'package:shop_app/view_model/login_cubit/login_cubit.dart';
@@ -18,13 +18,14 @@ import 'app_constance/stripe_keys.dart';
 import 'view_model/bloc observer.dart';
 
 void main() async {
-  Stripe.publishableKey = StripeKeys.publishedKey;
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = StripeKeys.publishedKey;
   await DioHelper.init();
   await CacheHelper.init();
   Bloc.observer = MyBlocObserver();
   bool isDark = CacheHelper.getData(key: 'isDark') ?? true;
   GlobalMethods.token = CacheHelper.getData(key: 'token');
+
   runApp(MyApp(isDark));
 }
 
@@ -40,8 +41,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (BuildContext context) => AppCubit()
               ..homeModel()
-              ..changeShopTheme(fromShared: isDark)
-              ..getUserdata()),
+              ..changeShopTheme(fromShared: isDark)),
         BlocProvider(
           create: (BuildContext context) => RegisterCubit(),
         ),
@@ -67,8 +67,8 @@ class MyApp extends StatelessWidget {
                 title: AppStrings.appTitle,
                 debugShowCheckedModeBanner: false,
                 theme: AppCubit.get(context).isDark
-                    ? getLightApplicationTheme()
-                    : getDarkApplicationTheme(),
+                    ? getLightApplicationTheme(context)
+                    : getDarkApplicationTheme(context),
                 home: const SplashScreen(),
               );
             },

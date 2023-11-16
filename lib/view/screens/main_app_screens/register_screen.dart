@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
-import 'package:shop_app/view/screens/auth_screens/login_screen.dart';
+import 'package:shop_app/view/screens/main_app_screens/login_screen.dart';
 import 'package:shop_app/view/widgets/default_custom_text.dart';
 import 'package:shop_app/view/widgets/elevated_button_widget.dart';
 import '../../../app_constance/values_manager.dart';
@@ -24,7 +24,7 @@ class RegisterScreen extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: AppSize.s20),
+              padding: EdgeInsets.symmetric(horizontal: AppSize.s20),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -87,20 +87,24 @@ class RegisterScreen extends StatelessWidget {
                     SizedBox(
                       height: hSize * 0.03,
                     ),
-                    Visibility(
-                      replacement:
-                          const Center(child: CircularProgressIndicator()),
-                      visible: state is! RegisterLoadingState,
-                      child: DefaultButton(
-                          context: context,
-                          text: AppStrings.register,
-                          function: () {
-                            cubit.userRegister(context,
-                                email: cubit.emailController.text,
-                                name: cubit.nameController.text,
-                                phone: cubit.phoneController.text,
-                                password: cubit.passController.text);
-                          }),
+                    AnimatedSwitcher(
+                      duration: const Duration(seconds: 1),
+                      child: state is! RegisterLoadingState
+                          ? DefaultButton(
+                              context: context,
+                              text: AppStrings.register,
+                              function: () {
+                                cubit.userRegister(context,
+                                    email: cubit.emailController.text,
+                                    name: cubit.nameController.text,
+                                    phone: cubit.phoneController.text,
+                                    password: cubit.passController.text);
+                                cubit.emailController.clear();
+                                cubit.nameController.clear();
+                                cubit.phoneController.clear();
+                                cubit.passController.clear();
+                              })
+                          : const Center(child: CircularProgressIndicator()),
                     ),
                     SizedBox(
                       height: hSize * 0.02,

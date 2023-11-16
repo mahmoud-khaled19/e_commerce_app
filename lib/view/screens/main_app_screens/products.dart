@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
-import 'package:shop_app/view/screens/layout_screens/product_details.dart';
 import 'package:shop_app/view/widgets/default_custom_text.dart';
 import '../../../app_constance/constants_methods.dart';
 import '../../../app_constance/strings_manager.dart';
@@ -13,6 +12,7 @@ import '../../../view_model/app_cubit/app_cubit.dart';
 import '../../../view_model/app_cubit/app_states.dart';
 import '../../components/product_item.dart';
 import '../../components/products_loading_screen.dart';
+import '../inner_screens/product_details.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key});
@@ -34,7 +34,7 @@ class ProductsScreen extends StatelessWidget {
                             .map((e) => CachedNetworkImage(
                                   imageUrl: e.image!,
                                   width: double.infinity,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   errorWidget: (context, url, error) =>
                                       const Icon(Icons.error),
                                   placeholder: (context, url) =>
@@ -44,7 +44,7 @@ class ProductsScreen extends StatelessWidget {
                                     child: Container(
                                       margin: EdgeInsets.symmetric(
                                           horizontal: AppSize.s10),
-                                      padding: const EdgeInsets.all(10),
+                                      padding:  EdgeInsets.all(AppSize.s10),
                                       color: Theme.of(context).splashColor,
                                       height:
                                           AppDimensions.screenHeight(context) *
@@ -57,7 +57,7 @@ class ProductsScreen extends StatelessWidget {
                                 ))
                             .toList(),
                         options: CarouselOptions(
-                          height: 200,
+                          height: AppDimensions.screenHeight(context) * 0.25,
                           aspectRatio: 16 / 9,
                           viewportFraction: 0.8,
                           autoPlay: true,
@@ -86,10 +86,10 @@ class ProductsScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                             SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 5,
-                          childAspectRatio: 0.71,
+                          childAspectRatio: AppDimensions.screenHeight(context) * .00075,
                           mainAxisSpacing: 5,
                         ),
                         itemBuilder: (BuildContext context, int index) {

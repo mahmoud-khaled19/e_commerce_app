@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
-import 'package:shop_app/view/screens/auth_screens/login_screen.dart';
-import 'package:shop_app/view/screens/layout_screens/settings/privacy_screen.dart';
+import 'package:shop_app/view/screens/inner_screens/splash_screen.dart';
+import 'package:shop_app/view/screens/main_app_screens/login_screen.dart';
+import 'package:shop_app/view/screens/inner_screens/update_user_info_screen.dart';
 import 'package:shop_app/view/widgets/default_list_tile.dart';
-import '../../../../view_model/app_cubit/app_cubit.dart';
-import '../../../../view_model/app_cubit/app_states.dart';
+import '../../../view_model/app_cubit/app_cubit.dart';
+import '../../../view_model/app_cubit/app_states.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -15,8 +16,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double size = AppDimensions.screenWidth(context);
-    return BlocConsumer<AppCubit, AppStates>(
-      listener: (BuildContext context, Object? state) {},
+    return BlocBuilder<AppCubit, AppStates>(
       builder: (BuildContext context, state) {
         AppCubit cubit = BlocProvider.of(context);
         return Scaffold(
@@ -37,7 +37,7 @@ class SettingsScreen extends StatelessWidget {
                 DefaultListTile(
                   title: AppStrings.update,
                   function: () {
-                    GlobalMethods.navigateTo(context, PrivacyScreen());
+                    GlobalMethods.navigateTo(context, const UpdateUserInfoScreen());
                   },
                   icon: Icons.privacy_tip_outlined,
                 ),
@@ -58,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () {
-                              GlobalMethods.navigateAndFinish(context, const LoginScreen());
+                             GlobalMethods.signOut(context);
                             },
                             child: const Text('Ok'),
                           ),

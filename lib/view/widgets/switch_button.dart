@@ -1,8 +1,5 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'default_custom_text.dart';
 
 class SwitchButtonVisaNumber extends StatefulWidget {
@@ -22,19 +19,27 @@ class _SwitchButtonVisaNumberState extends State<SwitchButtonVisaNumber> {
         setState(() {
           isShowVisa = !isShowVisa;
         });
-        Timer.periodic(const Duration(seconds: 5), (timer) {
+        Timer(const Duration(seconds: 5), () {
           setState(() {
             isShowVisa = !isShowVisa;
           });
         });
       },
       child: AnimatedSwitcher(
-          duration: const Duration(seconds: 1),
-          child: isShowVisa
-              ? const DefaultCustomText(
-                  text: 'Tab Here & Try Test Visa',
-                )
-              : const SelectableText('4000056655665556 ')),
+        duration: const Duration(seconds: 1),
+        child: isShowVisa
+            ? const DefaultCustomText(
+                text: 'Tab Here & Try Test Visa',
+              )
+            : const Column(
+                children: [
+                  DefaultCustomText(
+                    text: 'Copy This Number',
+                  ),
+                  SelectableText('4000056655665556'),
+                ],
+              ),
+      ),
     );
   }
 }

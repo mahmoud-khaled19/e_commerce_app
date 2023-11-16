@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
+import 'package:shop_app/view/screens/inner_screens/product_details.dart';
 import 'package:shop_app/view/widgets/default_text_form_field.dart';
-import '../../generated/assets.dart';
-import '../../view_model/app_cubit/app_cubit.dart';
-import '../../view_model/search_cubit/cubit.dart';
-import '../../view_model/search_cubit/states.dart';
-import 'layout_screens/product_details.dart';
+
+import '../../../generated/assets.dart';
+import '../../../view_model/app_cubit/app_cubit.dart';
+import '../../../view_model/search_cubit/cubit.dart';
+import '../../../view_model/search_cubit/states.dart';
 
 class SearchScreen extends StatelessWidget {
   SearchScreen({super.key});

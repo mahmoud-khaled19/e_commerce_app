@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import '../../app_constance/stripe_keys.dart';
+import '../../view/screens/inner_screens/teack_order_screem.dart';
 import 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
@@ -56,19 +55,18 @@ class PaymentCubit extends Cubit<PaymentState> {
     return currentPosition;
   }
 
-  Future<void> makePayment(int amount, String currency) async {
+  Future<void> makePayment(context, int amount, String currency) async {
     emit(MakePaymentLoadingState());
     try {
       String clientSecret =
           await _getClientSecret((amount * 100).toString(), currency);
       await _initializePaymentSheet(clientSecret);
       await Stripe.instance.presentPaymentSheet();
+      GlobalMethods.navigateAndFinish(context, const TrackOrderScreen());
       emit(MakePaymentSuccessState());
     } catch (error) {
       Exception(error.toString());
       emit(MakePaymentErrorState());
-      print(error.toString());
-      log(amount);
     }
   }
 

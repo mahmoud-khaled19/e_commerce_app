@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../view_model/shared/network/local/shared_preferences.dart';
-import '../view/screens/auth_screens/login_screen.dart';
+import '../view/screens/inner_screens/splash_screen.dart';
 
 class GlobalMethods {
   static void navigateAndFinish(context, widget) {
@@ -28,8 +28,8 @@ class GlobalMethods {
 
   static void signOut(context) {
     CacheHelper.removeData(key: 'token').then((value) {
-      navigateAndFinish(context, const LoginScreen());
-
+      token == null ;
+      navigateAndFinish(context, const SplashScreen());
     });
   }
 
@@ -77,5 +77,5 @@ class GlobalMethods {
   //     mode: LaunchMode.externalApplication,
   //   );
   // }
-  static String? token = '';
+  static String? token;
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
-import 'package:shop_app/view/screens/layout_screens/product_details.dart';
 import '../../../app_constance/constants_methods.dart';
 import '../../../app_constance/strings_manager.dart';
 import '../../../generated/assets.dart';
@@ -9,6 +8,7 @@ import '../../../view_model/app_cubit/app_cubit.dart';
 import '../../../view_model/app_cubit/app_states.dart';
 import '../../components/carts_loading_screen.dart';
 import '../../components/product_item.dart';
+import '../inner_screens/product_details.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
@@ -30,7 +30,7 @@ class FavoritesScreen extends StatelessWidget {
                       physics: const BouncingScrollPhysics(),
                       crossAxisCount: 2,
                       crossAxisSpacing: 5,
-                      childAspectRatio: 0.65,
+                      childAspectRatio: AppDimensions.screenHeight(context) * .0007,
                       mainAxisSpacing: 5,
                       children: List.generate(cubit.favModel!.data!.data.length,
                           (index) {

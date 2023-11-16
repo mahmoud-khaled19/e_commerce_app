@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/view/screens/auth_screens/login_screen.dart';
+import 'package:shop_app/view/screens/main_app_screens/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../app_constance/colors_manager.dart';
-import '../../app_constance/constants_methods.dart';
-import '../../app_constance/fonts_manager.dart';
-import '../../app_constance/strings_manager.dart';
-import '../../app_constance/values_manager.dart';
-import '../../view_model/on_boarding_view_model.dart';
-import '../widgets/default_custom_text.dart';
-import '../widgets/elevated_button_widget.dart';
-import 'auth_screens/register_screen.dart';
+import '../../../app_constance/colors_manager.dart';
+import '../../../app_constance/constants_methods.dart';
+import '../../../app_constance/fonts_manager.dart';
+import '../../../app_constance/strings_manager.dart';
+import '../../../app_constance/values_manager.dart';
+import '../../../view_model/on_boarding_view_model.dart';
+import '../../widgets/default_custom_text.dart';
+import '../../widgets/elevated_button_widget.dart';
+import '../main_app_screens/register_screen.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});

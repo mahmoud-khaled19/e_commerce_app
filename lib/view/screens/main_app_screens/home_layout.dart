@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/view_model/layout_viewmodel.dart';
 import '../../../app_constance/constants_methods.dart';
+import '../../../app_constance/values_manager.dart';
 import '../../../view_model/app_cubit/app_cubit.dart';
 import '../../../view_model/app_cubit/app_states.dart';
-import '../searchScreen.dart';
+import '../inner_screens/searchScreen.dart';
 
-class ShopLayout extends StatelessWidget {
-  const ShopLayout({super.key});
+class HomeLayout extends StatelessWidget {
+  const HomeLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class ShopLayout extends StatelessWidget {
         return Scaffold(
             appBar: AppBar(
               title: Text(
-                cubit.bottomNavTitles[cubit.currentIndex],
+                LayoutViewModel.bottomNavTitles[cubit.bottomNavIndex],
               ),
               actions: [
                 IconButton(
@@ -25,8 +27,8 @@ class ShopLayout extends StatelessWidget {
                     GlobalMethods.navigateTo(context, SearchScreen());
                   },
                 ),
-                const SizedBox(
-                  width: 5,
+                SizedBox(
+                  width: AppSize.s4,
                 ),
               ],
             ),
@@ -34,10 +36,10 @@ class ShopLayout extends StatelessWidget {
               onTap: (int index) {
                 cubit.changeBottomNavBarState(index);
               },
-              currentIndex: cubit.currentIndex,
-              items: cubit.bottomNavBarItems,
+              currentIndex: cubit.bottomNavIndex,
+              items: LayoutViewModel.bottomNavBarItems,
             ),
-            body: cubit.screens[cubit.currentIndex]);
+            body: LayoutViewModel.screens[cubit.bottomNavIndex]);
       },
     );
   }

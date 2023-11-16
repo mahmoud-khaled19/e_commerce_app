@@ -4,7 +4,7 @@ import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
 import 'package:shop_app/app_constance/values_manager.dart';
 import 'package:shop_app/view/widgets/default_custom_text.dart';
-import 'layout_screens/home_layout.dart';
+import '../main_app_screens/home_layout.dart';
 import 'on_boarding_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
       splashTransition: SplashTransition.fadeTransition,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       nextScreen: GlobalMethods.token != null
-          ? const ShopLayout()
+          ? const HomeLayout()
           : const OnBoardingView(),
       splash: Column(
         children: [

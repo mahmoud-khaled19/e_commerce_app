@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_app/app_constance/app_dimensions.dart';
+import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/view/widgets/default_custom_text.dart';
 import '../../../app_constance/strings_manager.dart';
 import '../../../app_constance/values_manager.dart';
 import '../../../view_model/app_cubit/app_cubit.dart';
 import '../../../view_model/app_cubit/app_states.dart';
+import '../main_app_screens/home_layout.dart';
 
 class ProductDetails extends StatelessWidget {
   final String image;
@@ -34,19 +36,32 @@ class ProductDetails extends StatelessWidget {
       builder: (BuildContext context, state) {
         AppCubit cubit = BlocProvider.of(context);
         return Scaffold(
-          appBar: AppBar(),
           body: SafeArea(
             child: Column(
               children: [
-                CachedNetworkImage(
-                  imageUrl: image,
-                  width: double.infinity,
-                  fit: BoxFit.fill,
-                  height: AppDimensions.screenHeight(context) * 0.4,
+                Stack(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: image,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      height: AppDimensions.screenHeight(context) * 0.3,
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          GlobalMethods.navigateAndFinish(
+                              context, const HomeLayout());
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                          size: AppSize.s20,
+                        ))
+                  ],
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(AppSize.s8),
+                    padding:  EdgeInsets.all(AppSize.s8),
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
                       child: Column(
@@ -56,7 +71,7 @@ class ProductDetails extends StatelessWidget {
                           ),
                           DefaultCustomText(
                             text: name,
-                            maxLines: name.length,
+                            maxLines: 1,
                           ),
                           SizedBox(
                             height: AppSize.s10,
@@ -124,19 +139,19 @@ class ProductDetails extends StatelessWidget {
                         ),
                         Expanded(
                             child: InkWell(
-                          onTap: () {
-                             cubit.changeCartsState(id, context);
-                          },
-                          child: Container(
-                              color: Theme.of(context).cardColor,
-                              height: AppSize.s40,
-                              child: DefaultCustomText(
-                                alignment: Alignment.bottomCenter,
-                                text: cubit.carts[id]!
-                                    ? AppStrings.inYourBag
-                                    : AppStrings.addToBag,
-                              )),
-                        ))
+                              onTap: () {
+                                cubit.changeCartsState(id, context);
+                              },
+                              child: Container(
+                                  color: Theme.of(context).cardColor,
+                                  height: AppSize.s40,
+                                  child: DefaultCustomText(
+                                    alignment: Alignment.center,
+                                    text: cubit.carts[id]!
+                                        ? AppStrings.inYourBag
+                                        : AppStrings.addToBag,
+                                  )),
+                            ))
                       ],
                     ))
               ],

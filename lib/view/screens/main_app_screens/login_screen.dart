@@ -4,13 +4,13 @@ import 'package:shop_app/app_constance/app_dimensions.dart';
 import 'package:shop_app/app_constance/constants_methods.dart';
 import 'package:shop_app/app_constance/strings_manager.dart';
 import 'package:shop_app/app_constance/values_manager.dart';
+import 'package:shop_app/view/screens/main_app_screens/register_screen.dart';
 import 'package:shop_app/view/widgets/default_custom_text.dart';
 import 'package:shop_app/view/widgets/elevated_button_widget.dart';
 import '../../../generated/assets.dart';
 import '../../../view_model/login_cubit/login_app_states.dart';
 import '../../../view_model/login_cubit/login_cubit.dart';
 import '../../widgets/default_text_form_field.dart';
-import 'register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal: AppSize.s14),
+              padding: EdgeInsets.symmetric(horizontal: AppSize.s14),
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -78,19 +78,21 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(
                       height: hSize * 0.02,
                     ),
-                    Visibility(
-                      replacement:
-                          const Center(child: CircularProgressIndicator()),
-                      visible: state is! LoginLoadingState,
-                      child: DefaultButton(
-                          context: context,
-                          text: AppStrings.login,
-                          function: () {
-                            cubit.userLogin(
-                                context: context,
-                                email: cubit.emailController.text,
-                                password: cubit.passwordController.text);
-                          }),
+                    AnimatedSwitcher(
+                      duration: const Duration(seconds: 1),
+                      child: state is! LoginLoadingState
+                          ? DefaultButton(
+                              context: context,
+                              text: AppStrings.login,
+                              function: () {
+                                cubit.userLogin(
+                                    context: context,
+                                    email: cubit.emailController.text,
+                                    password: cubit.passwordController.text);
+                                cubit.emailController.clear();
+                                cubit.passwordController.clear();
+                              })
+                          : const Center(child: CircularProgressIndicator()),
                     ),
                     SizedBox(
                       height: hSize * 0.04,

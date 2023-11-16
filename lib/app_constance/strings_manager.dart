@@ -32,4 +32,6 @@ class AppStrings {
 
   static const String searchScreen = 'Start Searching 🧐 ';
   static const String searchScreen2 = "Oops ! Data Not Found";
+  static const String addedSuccessfully = "Item Added Successfully";
+  static const String removedSuccessfully = "Item Removed Successfully";
 }

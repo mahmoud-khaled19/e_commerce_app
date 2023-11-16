@@ -38,8 +38,9 @@ class ProductItemShape extends StatelessWidget {
           decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(AppSize.s10)),
-          padding: const EdgeInsets.all(5),
+          padding: EdgeInsets.all(AppSize.s4),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Stack(
                 children: [
@@ -74,20 +75,19 @@ class ProductItemShape extends StatelessWidget {
                     )
                 ],
               ),
-              SizedBox(
-                height: AppSize.s10,
-              ),
               DefaultCustomText(
                 text: name,
+                maxLines: 3,
               ),
+              const Spacer(),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   DefaultCustomText(
                     text: 'AED ${price.round()}',
                     fontSize: AppSize.s12,
                   ),
-                  SizedBox(width: AppSize.s2),
+                  if (discount != 0) SizedBox(width: AppSize.s2),
                   if (discount != 0)
                     DefaultCustomText(
                       text: '${oldPrice.round()}',

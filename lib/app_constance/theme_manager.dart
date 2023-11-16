@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shop_app/app_constance/app_dimensions.dart';
 import 'package:shop_app/app_constance/style_manager.dart';
 import 'package:shop_app/app_constance/values_manager.dart';
 import 'colors_manager.dart';
 
-ThemeData getLightApplicationTheme() {
+ThemeData getLightApplicationTheme(context) {
   return ThemeData(
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: ColorsManager.lightCardColor,
@@ -40,17 +41,17 @@ ThemeData getLightApplicationTheme() {
       disabledColor: ColorsManager.grey,
       textTheme: TextTheme(
           headlineLarge: getSemiBoldStyle(
-              fontSize: AppSize.s18, color: ColorsManager.black),
+              fontSize: AppDimensions.screenHeight(context)*0.035, color: ColorsManager.black),
           titleLarge: getSemiBoldStyle(
-              fontSize: AppSize.s16, color: ColorsManager.black),
+              fontSize: AppDimensions.screenHeight(context)*0.03, color: ColorsManager.black),
           titleMedium:
-              getMediumStyle(fontSize: AppSize.s14, color: ColorsManager.black),
+              getMediumStyle(fontSize: AppDimensions.screenHeight(context)*0.022, color: ColorsManager.black),
           titleSmall: getRegularStyle(
-              fontSize: AppSize.s12, color: ColorsManager.grey)),
+              fontSize: AppDimensions.screenHeight(context)*0.015, color: ColorsManager.grey)),
       brightness: Brightness.light);
 }
 
-ThemeData getDarkApplicationTheme() {
+ThemeData getDarkApplicationTheme(context) {
   return ThemeData(
       scaffoldBackgroundColor: ColorsManager.darkScaffoldColor,
       cardColor: ColorsManager.darkCardColor,
@@ -83,12 +84,12 @@ ThemeData getDarkApplicationTheme() {
       disabledColor: ColorsManager.grey,
       textTheme: TextTheme(
           headlineLarge:
-              getSemiBoldStyle(fontSize: AppSize.s18, color: Colors.white),
+              getSemiBoldStyle(fontSize: AppDimensions.screenHeight(context)*0.035, color: Colors.white),
           titleLarge:
-              getSemiBoldStyle(fontSize: AppSize.s16, color: Colors.white),
+              getSemiBoldStyle(fontSize: AppDimensions.screenHeight(context)*0.03, color: Colors.white),
           titleMedium:
-              getMediumStyle(fontSize: AppSize.s14, color: Colors.white),
+              getMediumStyle(fontSize: AppDimensions.screenHeight(context)*0.022, color: Colors.white),
           titleSmall: getRegularStyle(
-              fontSize: AppSize.s12, color: ColorsManager.grey)),
+              fontSize: AppDimensions.screenHeight(context)*0.015, color: ColorsManager.grey)),
       brightness: Brightness.dark);
 }
